@@ -58,11 +58,33 @@ class StudentListview(View):
 
         query = request.GET.get('query')
 
-        students = Student.objects.filter(active_status = True)
+        role = request.user.role
 
-        if query :
+        if role in ['Trainer'] :
+             
+             students = Student.objects.filter(active_status = True,trainer__profile = request.user)
 
-            students= Student.objects.filter(Q(active_status=True)&(Q(first_name__icontains=query)|
+             if query :
+
+                    students= Student.objects.filter(Q(active_status=True)&Q(trainer__profile=request.user)&(Q(first_name__icontains=query)|
+                                                                    Q(last_name__icontains=query)|
+                                                                    Q(email__exact=query)|
+                                                                    Q(contact_num__icontains=query)|
+                                                                    Q(house_name__icontains=query)|
+                                                                    Q(post_office__icontains=query)|
+                                                                    Q(district__icontains=query)|
+                                                                    Q(pincode__icontains=query)|
+                                                                    Q(adm_number__icontains=query)|
+                                                                    Q(course__code__icontains=query)|
+                                                                    Q(batch__name__icontains=query)|
+                                                                    Q(trainer__first_name__icontains=query)))
+        else :
+
+             students = Student.objects.filter(active_status = True)
+
+             if query :
+
+                students= Student.objects.filter(Q(active_status=True)&(Q(first_name__icontains=query)|
                                                                     Q(last_name__icontains=query)|
                                                                     Q(email__exact=query)|
                                                                     Q(contact_num__icontains=query)|

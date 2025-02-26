@@ -4,7 +4,7 @@ from student.models import BaseClass,DistrictView
 
 # Create your models here.
 
-class Trainers(BaseClass):
+class AcademicCounsellors(BaseClass):
 
     profile = models.OneToOneField('authentication.Profile',on_delete = models.CASCADE)
 
@@ -14,7 +14,7 @@ class Trainers(BaseClass):
 
     employee_id = models.CharField(max_length=10)
 
-    photo = models.ImageField(upload_to='trainers')
+    photo = models.ImageField(upload_to='academic_counsellor')
 
     email = models.EmailField()
 
@@ -32,9 +32,7 @@ class Trainers(BaseClass):
     
     stream = models.CharField(max_length=25)
 
-    id_card = models.FileField(upload_to='trainers/idproof')
-
-    course = models.ForeignKey('courses.Courses',null=True,on_delete=models.SET_NULL)
+    id_card = models.FileField(upload_to='academic_counsellor/idproof')
 
     def __str__(self):
 
@@ -42,6 +40,6 @@ class Trainers(BaseClass):
     
     class Meta:
 
-        verbose_name = 'Trainers'
+        verbose_name = 'Academic_Consellors'
 
-        verbose_name_plural ='Trainers'
+        verbose_name_plural ='Academic_Counsellors'
