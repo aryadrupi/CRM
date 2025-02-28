@@ -75,7 +75,7 @@
             </li>
           </ul>
           {%endif%}
-          {%check_user_role request 'Admin,Sales,Trainer,Academic counsillor' as allow%}
+          {%check_user_role request 'Admin,Sales,Trainer,Academic_counsellor' as allow%}
           {%if allow%}
           <ul>
             <li class="relative px-6 py-3">
@@ -134,7 +134,7 @@
               </a>
             </li>
             {%endif%}
-            {%check_user_role request 'Admin,Sales,Trainer,Academi councillor' as allow%}
+            {%check_user_role request 'Admin,Sales,Trainer,Academic_counsellor' as allow%}
             {%if allow%}
             <li class="relative px-6 py-3">
               <a
@@ -194,7 +194,7 @@
                 </a>
               </li>
               {%endif%}
-              {%check_user_role request 'Admin,Academic councillor' as allow%}
+              {%check_user_role request 'Admin,Academic_counsellor' as allow%}
               {%if allow%}
               <li class="relative px-6 py-3">
                 <a
@@ -223,7 +223,7 @@
                 </a>
               </li>
               {%endif%}
-              {%check_user_role request 'Admin,Academic councillor,Student' as allow%}
+              {%check_user_role request 'Admin,Academic_counsellor,Student' as allow%}
               {%if allow%}
               <li class="relative px-6 py-3">
                 <a

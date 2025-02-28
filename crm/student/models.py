@@ -131,7 +131,6 @@ class Student(BaseClass) :
 
     trainer = models.ForeignKey('trainers.Trainers',null=True,on_delete = models.SET_NULL)
 
-
     def __str__(self) :
 
         return f'{self.first_name} {self.last_name} {self.batch}'

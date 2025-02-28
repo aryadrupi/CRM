@@ -78,6 +78,25 @@ class StudentListview(View):
                                                                     Q(course__code__icontains=query)|
                                                                     Q(batch__name__icontains=query)|
                                                                     Q(trainer__first_name__icontains=query)))
+                    
+        if role in ['Academic_counsellor'] :
+             
+             students = Student.objects.filter(active_status = True,batch__academic_counsellor__profile = request.user)
+
+             if query :
+
+                    students= Student.objects.filter(Q(active_status=True)&Q(batch__academic_counsellor__profile=request.user)&(Q(first_name__icontains=query)|
+                                                                    Q(last_name__icontains=query)|
+                                                                    Q(email__exact=query)|
+                                                                    Q(contact_num__icontains=query)|
+                                                                    Q(house_name__icontains=query)|
+                                                                    Q(post_office__icontains=query)|
+                                                                    Q(district__icontains=query)|
+                                                                    Q(pincode__icontains=query)|
+                                                                    Q(adm_number__icontains=query)|
+                                                                    Q(course__code__icontains=query)|
+                                                                    Q(batch__name__icontains=query)|
+                                                                    Q(batch__academic_counsellor__first_name__icontains=query)))            
         else :
 
              students = Student.objects.filter(active_status = True)

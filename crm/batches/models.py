@@ -6,6 +6,8 @@ from student.models import BaseClass
 
 class Batches(BaseClass):
 
+    profile = models.OneToOneField('authentication.Profile',on_delete = models.CASCADE)
+
     name = models.CharField(max_length=50)
 
     start_date = models.DateField()
