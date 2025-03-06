@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 
 from .models import DistrictView,CourseChoices,TrainerView,BatchView
 
-from . utility import get_admission_number,get_password
+from . utility import get_admission_number,get_password,send_email
 
 from django.views.generic import View
 
@@ -23,6 +23,10 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 from authentication.permissions import permission_roles
+
+import threading
+
+import datetime
 
 # Create your views here.
 
@@ -132,7 +136,7 @@ class FormView(View):
 
         # data = {'districts' :DistrictView,'courses' :CourseChoices,'batches' :BatchView,'trainees' :TrainerView,'form' :form}
 
-        data = {'form':form}
+        data = {'form':form,}
     
         return render(request,'student/form.html',context = data)
     
@@ -156,11 +160,33 @@ class FormView(View):
 
                 print(password)
 
-                profile = Profile.objects.create_user(username = username,password = password,role = 'student')
+                profile = Profile.objects.create_user(username = username,password = password,role = 'Student')
 
                 Student.profile = profile
 
                 Student.save()
+
+                # sending login credentials to student through mail
+
+                subject = 'Login Credential'
+
+                recipients = [Student.email]
+
+                template = 'email/login_credential.html'
+
+                join_date = Student.join_date
+
+                date_after_10_days = join_date + datetime.timedelta(days=10)
+
+                print(date_after_10_days)
+
+                context = {'name':f'{Student.first_name} {Student.last_name}','username':username,'password':password,'date_after_10_days':date_after_10_days}
+
+                # send_email(subject,recipients,template,context)
+
+                thread = threading.Thread(target=send_email,args=(subject,recipients,template,context))
+
+                thread.start()
 
             return redirect('students')
         
