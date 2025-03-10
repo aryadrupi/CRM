@@ -1,47 +1,59 @@
 from django.db import models
 
-# Create your models here.
-
 from student.models import BaseClass
 
-class PaymentSettlechoices(models.TextChoices):
+class PaymentStatusChoice(models.TextChoices):
 
-    ONE_TIME = 'ONE_TIME','ONE_TIME'
+    PENDING = 'Pending','Pending'
 
-    INSTALLMENTS = 'INSTALLMENTS','INSTALLMENTS'
+    SUCCESS = 'Success','Success'
 
-class InstallmentChoices(models.IntegerChoices):
+    FAILD = 'Failed','Failed'
 
-    TWO = 2,'2'
-
-    THREE = 3,'3'
-
-    FOUR = 4,'4'
-
-    FIVE = 5,'5'
-
-    SIX = 6,'6'
-
-class PaymentStructure(BaseClass) :
+class Payment(BaseClass):
 
     student = models.OneToOneField('student.Student',on_delete=models.CASCADE)
 
-    one_time_or_installments = models.CharField(max_length=20,choices=PaymentSettlechoices.choices)
+    amount = models.FloatField()
 
-    no_of_installments = models.IntegerField(choices=InstallmentChoices.choices,null=True,blank=True)
+    status = models.CharField(max_length=20,choices=PaymentStatusChoice.choices,default=PaymentStatusChoice.PENDING)
 
-    fee_to_be_paid = models.FloatField()
+    paid_at = models.DateTimeField(null=True,blank=True)
 
-    def __str__(self) :
+    def __str__(self):
 
-        return f'{self.student.first_name} {self.student.batch.name} Payment Structure'
+        return f'{self.student.first_name}-{self.student.batch.name}'
     
     class Meta :
 
-         verbose_name = 'Payment Structure'
+        verbose_name = 'Payments'
 
-         verbose_name_plural = 'Payment Structure'
+        verbose_name_plural = 'Payments'
 
-         ordering = ['id']
+class Transactions(BaseClass):
+
+    payment = models.ForeignKey('Payment',on_delete=models.CASCADE)
+
+    rzp_order_id = models.SlugField()
+
+    amount = models.FloatField()
+
+    status = models.CharField(max_length=20,choices=PaymentStatusChoice.choices,default=PaymentStatusChoice.PENDING)
+
+    transaction_at = models.DateTimeField(null=True,blank=True)
+
+    rzp_payment_id = models.SlugField(null=True,blank=True)
+
+    rzp_signature = models.TextField(null=True,blank=True)
+
+    def __str__(self):
+
+        return f'{self.payment.student.first_name}-{self.payment.student.batch.name}{self.status}'
+    
+    class Meta :
+
+        verbose_name = 'Transactions'
+
+        verbose_name_plural = 'Transactions'
 
 

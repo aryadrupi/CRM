@@ -28,6 +28,8 @@ import threading
 
 import datetime
 
+from payments.models import Payment
+
 # Create your views here.
 
 class GetStudentObject :
@@ -165,6 +167,12 @@ class FormView(View):
                 Student.profile = profile
 
                 Student.save()
+
+                # payment section  
+
+                fee = Student.course.offer_fee if Student.course.offer_fee else Student.course.fee
+
+                Payment.objects.create(student=Student,amount=fee)
 
                 # sending login credentials to student through mail
 
