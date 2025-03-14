@@ -17,25 +17,25 @@
                           focus:shadow-outline-purple">Pay Now</a>
       </div>
     </div>
-    <div class="flex items-center space-x-6 my-6">
-      <span class="font-medium text-gray-700 dark:text-gray-400">Amount:</span>
-      <span class="text-gray-600">{{student.adm_number}}</span>
+    <div class="flex items-center space-x-3 my-6">
+      <span class="font-medium text-gray-700 dark:text-gray-400">Amount :</span>
+      <span class="text-gray-600">{{payment.amount}}</span>
     </div>
-    <div class="flex items-center space-x-6 my-6">
-      <span class="font-medium text-gray-700 dark:text-gray-400">Paid At:</span>
-      <span class="text-gray-600">{{student.course.code}}</span>
+    <div class="flex items-center space-x-3 my-6">
+      <span class="font-medium text-gray-700 dark:text-gray-400">Paid At :</span>
+      <span class="text-gray-600">{{payment.paid_at | date:"d-m-Y h:i:s"}}</span>
     </div>
-    <div class="flex items-center space-x-6 my-6">
-      <span class="font-medium text-gray-700 dark:text-gray-400">Payment Mode:</span>
-      <span class="text-gray-600">{{student.batch.name}}</span>
+    <div class="flex items-center space-x-3 my-6">
+      <span class="font-medium text-gray-700 dark:text-gray-400">Payment Mode :</span>
+      <span class="text-gray-600">Online</span>
     </div>
-    <div class="flex items-center space-x-6 my-6">
-      <span class="font-medium text-gray-700 dark:text-gray-400">Platform:</span>
-      <span class="text-gray-600">{{student.batch.start_date|date:"d-m-Y"}}</span>
+    <div class="flex items-center space-x-3 my-6">
+      <span class="font-medium text-gray-700 dark:text-gray-400">Platform :</span>
+      <span class="text-gray-600">Razorpay</span>
     </div>
-    <div class="flex items-center space-x-6 my-6">
-      <span class="font-medium text-gray-700 dark:text-gray-400">Order ID:</span>
-      <span class="text-gray-600">{{student.join_date|date:"d-m-Y"}}</span>
+    <div class="flex items-center space-x-3 my-6">
+      <span class="font-medium text-gray-700 dark:text-gray-400">Order ID :</span>
+      <span class="text-gray-600">{{payment.}}</span>
     </div>
       </div>
     </div>
